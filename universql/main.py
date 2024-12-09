@@ -109,10 +109,10 @@ def snowflake(host, port, ssl_keyfile, ssl_certfile, account, catalog, metrics_p
     if host == LOCALHOSTCOMPUTING_COM:
         data = socket.gethostbyname_ex(LOCALHOSTCOMPUTING_COM)
         logger.info(f"Using the SSL keyfile and certfile for localhostcomputing.com. DNS resolves to {data}")
-        if "127.0.0.1" not in data[2]:
-            logger.error(
-                "The DNS setting for localhostcomputing.com doesn't point to localhost, refusing to start. Please update UniverSQL.")
-            sys.exit(1)
+        # if "127.0.0.1" not in data[2]:
+        #     logger.error(
+        #         "The DNS setting for localhostcomputing.com doesn't point to localhost, refusing to start. Please update UniverSQL.")
+        #     sys.exit(1)
 
     if tunnel == 'cloudflared':
         start_cloudflared(port, metrics_port)

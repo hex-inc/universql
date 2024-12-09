@@ -94,7 +94,7 @@ class DuckDBCatalog(ICatalog):
             return None
         if table_exists[0] is None:
             return TableType.LOCAL
-        plan = self.duckdb.get_substrait_json(table_exists[0])
+        # plan = self.duckdb.get_substrait_json(table_exists[0])
 
     def register_locations(self, tables: Locations):
         raise Exception("Unsupported operation")
@@ -116,7 +116,13 @@ class DuckDBCatalog(ICatalog):
         return native_tables
 
     def executor(self) -> Executor:
-        return DuckDBExecutor(self)
+        executor = DuckDBExecutor(self)
+
+        dummy_queries = sqlglot.parse("SELECT 1", read="snowflake")
+        for ast in dummy_queries:
+            executor._sync_catalog(ast, {})
+
+        return executor
 
 
 class DuckDBExecutor(Executor):

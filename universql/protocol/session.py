@@ -228,7 +228,7 @@ class UniverSQLSession:
                     iceberg_table = self.iceberg_catalog.load_table((namespace, table_name))
                 except NoSuchNamespaceError:
                     self.iceberg_catalog.create_namespace((namespace,))
-                    iceberg_table = self.iceberg_catalog.register_table((namespace, table_name), table.metadata)
+                    iceberg_table = self.iceberg_catalog.register_table((namespace, table_name), table.metadata_location)
                 locations[table_ast] = iceberg_table
             else:
                 raise Exception(f"Unknown table type {table}")

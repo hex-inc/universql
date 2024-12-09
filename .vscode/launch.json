@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python Debugger: Attach using Process Id",
+      "type": "debugpy",
+      "request": "attach",
+      "processId": "${command:pickProcess}",
+    },
+    {
+      "name": "UniverSQL: Snowflake [EPD Test Admin]",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/universql/main.py",
+      "python": "/Users/freddie/Library/Caches/pypoetry/virtualenvs/universql-qJJ1HKwm-py3.11/bin/python",
+      "console": "integratedTerminal",
+      "args": ["snowflake", "--account", "sy59756.us-east-2.aws"]
+    }
+  ]
+}
