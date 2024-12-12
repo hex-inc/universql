@@ -15,8 +15,9 @@ RUN poetry config virtualenvs.create false --local
 # Copy everything. (Note: If needed, we can use .dockerignore to limit what's copied.)
 COPY . .
 
-COPY .profile /aws_config 
-ENV AWS_SHARED_CREDENTIALS_FILE=/aws_config
+COPY .profile /tmp/aws_config 
+ENV AWS_SHARED_CREDENTIALS_FILE=/tmp/aws_config
+ENV HOME=/tmp
 
 RUN poetry install
 

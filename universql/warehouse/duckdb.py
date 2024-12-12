@@ -42,7 +42,7 @@ class DuckDBCatalog(ICatalog):
             'max_memory': context.get('max_memory'),
             'temp_directory': os.path.join(context.get('cache_directory'), "duckdb-staging"),
             # 'lock_configuration': 'true',
-            'enable_external_access': 'true',
+            'enable_external_access': 'true'
         }
         if context.get('max_cache_size') != "0":
             duck_config['max_temp_directory_size'] = context.get('max_cache_size')
@@ -60,6 +60,8 @@ class DuckDBCatalog(ICatalog):
         DuckDBFunctions.register(self.duckdb)
         self.duckdb.install_extension("iceberg")
         self.duckdb.load_extension("iceberg")
+        self.duckdb.execute("SET home_directory = '/tmp';")
+        self.duckdb.execute("SET secret_directory = '/tmp';")
         motherduck_token = self.context.get('motherduck_token')
         if motherduck_token is not None:
             self.duckdb.execute("ATTACH 'md:'")
